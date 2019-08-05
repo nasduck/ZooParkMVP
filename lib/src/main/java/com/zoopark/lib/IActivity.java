@@ -5,6 +5,8 @@ import android.support.annotation.Nullable;
 
 public interface IActivity {
 
+    void initComponent();
+
     /**
      * Init View
      *
