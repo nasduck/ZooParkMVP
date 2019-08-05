@@ -48,8 +48,10 @@ dependencies {
     api rootProject.ext.dependencies["rxpermissions2"]
     api rootProject.ext.dependencies["rxjava2"]
     api rootProject.ext.dependencies["rxandroid2"]
-    api rootProject.ext.dependencies['rxcache']
-    api rootProject.ext.dependencies['rxcache-jolyglot-gson']
+    api rootProject.ext.dependencies["rxlifecycle2"]
+    api rootProject.ext.dependencies["rxlifecycle2-android"]
+    api rootProject.ext.dependencies["rxlifecycle2-components"]
+    api rootProject.ext.dependencies["rxcache2"]
 
     // Dagger
     api rootProject.ext.dependencies['dagger2']
@@ -66,5 +68,7 @@ dependencies {
     api rootProject.ext.dependencies['retrofit-adapter-rxjava2']
 
     // OkHttp3
+    api rootProject.ext.dependencies["okhttp3"]
     api rootProject.ext.dependencies['okhttp3-logging-interceptor']
+    api rootProject.ext.dependencies["okhttp-urlconnection"]
 }
