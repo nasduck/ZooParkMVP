@@ -27,6 +27,9 @@ public abstract class BaseActivity<P extends IPresenter> extends AppCompatActivi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        initComponent();
+
         try {
             int layoutResID = initView(savedInstanceState);
             if (layoutResID != 0) {
