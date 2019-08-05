@@ -11,6 +11,15 @@ import com.zoopark.lib.BaseApplication;
 
 public class AnalyseActivity extends BaseActivity<AnalysePresenter> implements AnalyseContract.View {
 
+    @Override
+    public void initComponent() {
+        DaggerAnalyseComponent //如找不到该类,请编译一下项目
+                .builder()
+                .appComponent(((BaseApplication) this.getApplicationContext()).getAppComponent())
+                .analyseModule(new AnalyseModule(this))
+                .build()
+                .inject(this);
+    }
 
     @Override
     public int initView(@Nullable Bundle savedInstanceState) {
@@ -20,12 +29,6 @@ public class AnalyseActivity extends BaseActivity<AnalysePresenter> implements A
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        DaggerAnalyseComponent //如找不到该类,请编译一下项目
-                .builder()
-                .appComponent(((BaseApplication) this.getApplicationContext()).getAppComponent())
-                .analyseModule(new AnalyseModule(this))
-                .build()
-                .inject(this);
 
     }
 
