@@ -62,7 +62,8 @@ ext {
 
             //zoo park
             "banana-utils"                  : "com.github.nasduck:BananaUtils:0.2",
-            "RafikiPermissions"             : "com.github.nasduck:RafikiPermissions:1.2.0"
+            "RafikiPermissions"             : "com.github.nasduck:RafikiPermissions:1.2.0",
+            "GiraffeAdapter"                : "com.github.nasduck:GiraffeAdapter:0.1.0"
 
     ]
 }
