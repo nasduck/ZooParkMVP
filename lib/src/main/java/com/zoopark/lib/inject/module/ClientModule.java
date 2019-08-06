@@ -2,12 +2,9 @@ package com.zoopark.lib.inject.module;
 
 import android.app.Application;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.zoopark.lib.BuildConfig;
-import com.zoopark.lib.common.Resp;
+import com.zoopark.lib.BaseApplication;
+import com.zoopark.lib.inject.iconfig.OkhttpConfiguration;
 import com.zoopark.lib.inject.iconfig.RetrofitConfiguration;
 
 import java.util.concurrent.TimeUnit;
@@ -56,15 +53,28 @@ public abstract class ClientModule {
      */
     @Singleton
     @Provides
-    static OkHttpClient provideClient() {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+    static OkHttpClient provideClient(@Nullable OkhttpConfiguration configuration, OkHttpClient.Builder builder) {
+
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         builder.connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(interceptor);
+        if (configuration != null) {
+            configuration.configOkhttp(BaseApplication.context, builder);
+        }
 
         return builder.build();
+
+    }
+
+
+    @Singleton
+    @Provides
+    static OkHttpClient.Builder provideClientBuilder() {
+        return new OkHttpClient.Builder();
     }
 
 }
+
+

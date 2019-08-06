@@ -42,7 +42,7 @@ dependencies {
 
     // ZooPark
     api rootProject.ext.dependencies["banana-utils"]
-    api rootProject.ext.dependencies['RafikiPermissions']
+    api rootProject.ext.dependencies["RafikiPermissions"]
 
     // Rx
     api rootProject.ext.dependencies["rxpermissions2"]
