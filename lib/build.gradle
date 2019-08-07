@@ -42,6 +42,7 @@ dependencies {
     api rootProject.ext.dependencies["multidex"]
     api rootProject.ext.dependencies["butterknife"]
     api rootProject.ext.dependencies["arouter"]
+    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
     api rootProject.ext.dependencies["gson"]
     api rootProject.ext.dependencies["eventbus"]
     api rootProject.ext.dependencies["fresco"]
