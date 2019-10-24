@@ -4,6 +4,6 @@ import android.content.Context;
 
 import okhttp3.OkHttpClient;
 
-public interface OkhttpConfiguration {
+public interface OkhttpConfig {
     void configOkhttp(Context context, OkHttpClient.Builder builder);
 }

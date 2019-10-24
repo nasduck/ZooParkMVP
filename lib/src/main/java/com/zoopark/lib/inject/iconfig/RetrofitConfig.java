@@ -4,6 +4,6 @@ import android.content.Context;
 
 import retrofit2.Retrofit;
 
-public interface RetrofitConfiguration {
+public interface RetrofitConfig {
     void configRetrofit(Context context, Retrofit.Builder builder);
 }

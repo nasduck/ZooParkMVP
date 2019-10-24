@@ -5,11 +5,11 @@ import android.text.TextUtils;
 
 import com.zoopark.lib.inject.iconfig.BaseUrl;
 import com.zoopark.lib.inject.iconfig.GlobalHttpHandler;
-import com.zoopark.lib.inject.iconfig.OkhttpConfiguration;
-import com.zoopark.lib.inject.iconfig.RetrofitConfiguration;
+import com.zoopark.lib.inject.iconfig.OkhttpConfig;
+import com.zoopark.lib.inject.iconfig.RetrofitConfig;
+import com.zoopark.lib.inject.iconfig.RxCacheConfig;
 import com.zoopark.lib.utils.Preconditions;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -22,15 +22,16 @@ public class GlobalConfigModule {
     private HttpUrl mApiUrl;
     private BaseUrl mBaseUrl;
     private GlobalHttpHandler mHandler;
-    private RetrofitConfiguration mRetrofitConfiguration;
-    private OkhttpConfiguration mOkhttpConfiguration;
+    private RetrofitConfig mRetrofitConfig;
+    private OkhttpConfig mOkHttpConfig;
+    private RxCacheConfig mRxCacheConfig;
 
     private GlobalConfigModule(Builder builder) {
         this.mApiUrl = builder.apiUrl;
         this.mBaseUrl = builder.baseUrl;
         this.mHandler = builder.handler;
-        this.mRetrofitConfiguration = builder.retrofitConfiguration;
-        this.mOkhttpConfiguration = builder.okhttpConfiguration;
+        this.mRetrofitConfig = builder.retrofitConfig;
+        this.mOkHttpConfig = builder.okhttpConfig;
     }
 
     public static Builder builder() {
@@ -59,15 +60,22 @@ public class GlobalConfigModule {
     @Singleton
     @Provides
     @Nullable
-    RetrofitConfiguration provideRetrofitConfiguration() {
-        return mRetrofitConfiguration;
+    RetrofitConfig provideRetrofitConfig() {
+        return mRetrofitConfig;
     }
 
     @Singleton
     @Provides
     @Nullable
-    OkhttpConfiguration provideOkhttpConfiguration() {
-        return mOkhttpConfiguration;
+    OkhttpConfig provideOkhttpConfig() {
+        return mOkHttpConfig;
+    }
+
+    @Singleton
+    @Provides
+    @Nullable
+    RxCacheConfig provideRxCacheConfig() {
+        return mRxCacheConfig;
     }
 
     public static class Builder {
@@ -75,8 +83,9 @@ public class GlobalConfigModule {
         private HttpUrl apiUrl;
         private BaseUrl baseUrl;
         private GlobalHttpHandler handler;
-        private RetrofitConfiguration retrofitConfiguration;
-        private OkhttpConfiguration okhttpConfiguration;
+        private RetrofitConfig retrofitConfig;
+        private OkhttpConfig okhttpConfig;
+        private RxCacheConfig rxCacheConfig;
 
         private Builder() {}
 
@@ -102,13 +111,18 @@ public class GlobalConfigModule {
             return this;
         }
 
-        public Builder retrofitConfiguration(RetrofitConfiguration retrofitConfiguration) {
-            this.retrofitConfiguration = retrofitConfiguration;
+        public Builder retrofitConfig(RetrofitConfig retrofitConfig) {
+            this.retrofitConfig = retrofitConfig;
             return this;
         }
 
-        public Builder okhttpConfiguration(OkhttpConfiguration okhttpConfiguration) {
-            this.okhttpConfiguration = okhttpConfiguration;
+        public Builder okhttpConfig(OkhttpConfig okhttpConfig) {
+            this.okhttpConfig = okhttpConfig;
+            return this;
+        }
+
+        public Builder cacheConfig(RxCacheConfig rxCacheConfig) {
+            this.rxCacheConfig = rxCacheConfig;
             return this;
         }
 
