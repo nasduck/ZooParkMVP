@@ -4,9 +4,11 @@ import android.app.Application;
 import android.support.annotation.Nullable;
 
 import com.zoopark.lib.BaseApplication;
-import com.zoopark.lib.inject.iconfig.OkhttpConfig;
-import com.zoopark.lib.inject.iconfig.RetrofitConfig;
+import com.zoopark.lib.inject.config.GlobalHttpHandler;
+import com.zoopark.lib.inject.config.OkhttpConfig;
+import com.zoopark.lib.inject.config.RetrofitConfig;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
@@ -14,7 +16,10 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -57,6 +62,7 @@ public abstract class ClientModule {
      *
      * @param config      用户自定义的 OkHttp 配置
      * @param interceptor Http Logging 拦截器
+     * @param httpHandler 全局 Http 拦截器
      * @param builder     OkHttp 构造器
      * @return
      */
@@ -64,12 +70,26 @@ public abstract class ClientModule {
     @Provides
     static OkHttpClient provideClient(@Nullable OkhttpConfig config,
                                       HttpLoggingInterceptor interceptor,
+                                      @Nullable final GlobalHttpHandler httpHandler,
                                       OkHttpClient.Builder builder) {
 
         builder.connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(interceptor);
 
+        // 全局 Http 拦截
+        if (httpHandler != null) {
+            builder.addInterceptor(new Interceptor() {
+                @Override
+                public Response intercept(Chain chain) throws IOException {
+                    Request request = httpHandler.onBeforeHttpRequest(chain.request());
+                    Response response = chain.proceed(request);
+                    return  httpHandler.onHttpResponse(response);
+                }
+            });
+        }
+
+        // OkHttp 配置
         if (config != null) {
             config.configOkhttp(BaseApplication.context, builder);
         }

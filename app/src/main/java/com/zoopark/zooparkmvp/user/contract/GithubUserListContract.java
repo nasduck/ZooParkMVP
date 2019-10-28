@@ -19,9 +19,7 @@ public interface GithubUserListContract {
 
     interface Model extends IModel {
         Observable<List<GithubUserBean>> getUserInfo();
-
         Observable<Reply<List<GithubUserBean>>> getUserListCache(Observable<List<GithubUserBean>> observable, EvictProvider evictProvider);
-
     }
 
 }
