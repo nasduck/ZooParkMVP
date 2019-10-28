@@ -19,19 +19,19 @@ public class GithubUserListModule {
 
     @ActivityScope
     @Provides
-    GithubUserListContract.View provideGithubUserView() {
+    GithubUserListContract.View provideGithubUserListView() {
         return this.view;
     }
 
     @ActivityScope
     @Provides
-    GithubUserListContract.Model provideGithubUserModel(GithubUserListModel model) {
+    GithubUserListContract.Model provideGithubUserListModel(GithubUserListModel model) {
         return model;
     }
 
     @ActivityScope
     @Provides
-    GithubUserAdapter providerGithubUserAdapter() {
+    GithubUserAdapter providerGithubUserListAdapter() {
         return new GithubUserAdapter(view.getSelf());
     }
 }

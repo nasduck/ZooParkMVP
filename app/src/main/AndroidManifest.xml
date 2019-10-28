@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".user.ui.activity.GithubUserInfoActivity"></activity>
         <activity android:name=".home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,8 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".user.ui.activity.GithubUserListActivity"></activity>
-        <!-- mvp 配置 -->
+        <activity android:name=".user.ui.activity.GithubUserListActivity" /> <!-- mvp 配置 -->
         <meta-data
             android:name="com.zoopark.zooparkmvp.base.GlobalConfiguration"
             android:value="ConfigModule" />

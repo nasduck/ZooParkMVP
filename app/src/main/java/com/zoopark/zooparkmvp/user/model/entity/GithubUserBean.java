@@ -7,6 +7,8 @@ public class GithubUserBean {
     @SerializedName("avatar_url")
     private String avatarUrl;
     private String login;
+    @SerializedName("html_url")
+    private String htmlUrl;
 
     public String getAvatarUrl() {
         return avatarUrl;
@@ -22,5 +24,13 @@ public class GithubUserBean {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getHtmlUrl() {
+        return htmlUrl;
+    }
+
+    public void setHtmlUrl(String htmlUrl) {
+        this.htmlUrl = htmlUrl;
     }
 }

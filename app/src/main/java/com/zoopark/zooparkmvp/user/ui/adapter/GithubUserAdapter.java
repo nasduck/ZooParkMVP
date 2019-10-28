@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -18,6 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GithubUserAdapter extends RecyclerView.Adapter<GithubUserAdapter.GithubUserViewHolder> {
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    private OnItemClickListener mListener;
 
     private Context mContext;
     private List<GithubUserBean> mData = new ArrayList<>();
@@ -35,7 +42,13 @@ public class GithubUserAdapter extends RecyclerView.Adapter<GithubUserAdapter.Gi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GithubUserViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final GithubUserViewHolder viewHolder, int i) {
+        viewHolder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) mListener.onItemClick(viewHolder.getAdapterPosition());
+            }
+        });
         Glide.with(viewHolder.ivUserAvatar.getContext())
                 .load(mData.get(i).getAvatarUrl())
                 .into(viewHolder.ivUserAvatar);
@@ -51,14 +64,24 @@ public class GithubUserAdapter extends RecyclerView.Adapter<GithubUserAdapter.Gi
         this.mData = data;
     }
 
+    public List<GithubUserBean> getDate() {
+        return mData;
+    }
+
+    public void setItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
+    }
+
     public class GithubUserViewHolder extends RecyclerView.ViewHolder {
 
+        LinearLayout container;
         ImageView ivUserAvatar;
         TextView tvName;
 
         public GithubUserViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            container = itemView.findViewById(R.id.container);
             ivUserAvatar = itemView.findViewById(R.id.iv_user);
             tvName = itemView.findViewById(R.id.tv_name);
         }

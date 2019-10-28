@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zoopark.lib.BaseActivity;
@@ -24,11 +26,12 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
+import static com.zoopark.zooparkmvp.base.RouterCenter.GithubUser.GITHUB_USER_INFO;
 import static com.zoopark.zooparkmvp.base.RouterCenter.GithubUser.GITHUB_USER_LIST;
 
 @Route(path = GITHUB_USER_LIST)
 public class GithubUserListActivity extends BaseActivity<GithubUserListPresenter>
-        implements GithubUserListContract.View, OnRefreshListener {
+        implements GithubUserListContract.View, OnRefreshListener, GithubUserAdapter.OnItemClickListener {
 
     @Inject
     GithubUserAdapter mAdapter;
@@ -60,6 +63,7 @@ public class GithubUserListActivity extends BaseActivity<GithubUserListPresenter
         setSupportActionBar(mToolbar);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        mAdapter.setItemClickListener(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -86,5 +90,13 @@ public class GithubUserListActivity extends BaseActivity<GithubUserListPresenter
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         mPresenter.callGetGithubUserList(true, refreshLayout);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        ARouter.getInstance()
+                .build(GITHUB_USER_INFO)
+                .withString("UserName", mAdapter.getDate().get(position).getLogin())
+                .navigation();
     }
 }
