@@ -3,9 +3,8 @@ package com.zoopark.lib.inject.module;
 import android.app.Application;
 import android.support.annotation.Nullable;
 
-import com.zoopark.lib.base.BaseApplication;
 import com.zoopark.lib.inject.config.GlobalHttpHandler;
-import com.zoopark.lib.inject.config.OkhttpConfig;
+import com.zoopark.lib.inject.config.OkHttpConfig;
 import com.zoopark.lib.inject.config.RetrofitConfig;
 
 import java.io.IOException;
@@ -68,7 +67,8 @@ public abstract class ClientModule {
      */
     @Singleton
     @Provides
-    static OkHttpClient provideClient(@Nullable OkhttpConfig config,
+    static OkHttpClient provideClient(Application app,
+                                      @Nullable OkHttpConfig config,
                                       HttpLoggingInterceptor interceptor,
                                       @Nullable final GlobalHttpHandler httpHandler,
                                       OkHttpClient.Builder builder) {
@@ -91,7 +91,7 @@ public abstract class ClientModule {
 
         // OkHttp 配置
         if (config != null) {
-            config.configOkhttp(BaseApplication.context, builder);
+            config.configOkHttp(app, builder);
         }
 
         return builder.build();

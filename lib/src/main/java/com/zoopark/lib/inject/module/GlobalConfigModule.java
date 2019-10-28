@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import com.zoopark.lib.inject.config.BaseUrl;
 import com.zoopark.lib.inject.config.GlobalHttpHandler;
-import com.zoopark.lib.inject.config.OkhttpConfig;
+import com.zoopark.lib.inject.config.OkHttpConfig;
 import com.zoopark.lib.inject.config.RetrofitConfig;
 import com.zoopark.lib.inject.config.RxCacheConfig;
 import com.zoopark.lib.utils.Preconditions;
@@ -23,7 +23,7 @@ public class GlobalConfigModule {
     private BaseUrl mBaseUrl;
     private GlobalHttpHandler mHttpHandler;
     private RetrofitConfig mRetrofitConfig;
-    private OkhttpConfig mOkHttpConfig;
+    private OkHttpConfig mOkHttpConfig;
     private RxCacheConfig mRxCacheConfig;
 
     private GlobalConfigModule(Builder builder) {
@@ -71,7 +71,7 @@ public class GlobalConfigModule {
     @Singleton
     @Provides
     @Nullable
-    OkhttpConfig provideOkhttpConfig() {
+    OkHttpConfig provideOkhttpConfig() {
         return mOkHttpConfig;
     }
 
@@ -88,7 +88,7 @@ public class GlobalConfigModule {
         private BaseUrl baseUrl;
         private GlobalHttpHandler httpHandler;
         private RetrofitConfig retrofitConfig;
-        private OkhttpConfig okhttpConfig;
+        private OkHttpConfig okhttpConfig;
         private RxCacheConfig rxCacheConfig;
 
         private Builder() {}
@@ -120,7 +120,7 @@ public class GlobalConfigModule {
             return this;
         }
 
-        public Builder okhttpConfig(OkhttpConfig okhttpConfig) {
+        public Builder okhttpConfig(OkHttpConfig okhttpConfig) {
             this.okhttpConfig = okhttpConfig;
             return this;
         }

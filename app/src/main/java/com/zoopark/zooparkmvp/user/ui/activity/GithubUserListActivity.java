@@ -12,7 +12,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zoopark.lib.base.BaseActivity;
-import com.zoopark.lib.base.BaseApplication;
+import com.zoopark.lib.application.ZooApplication;
 import com.zoopark.zooparkmvp.R;
 import com.zoopark.zooparkmvp.user.contract.GithubUserListContract;
 import com.zoopark.zooparkmvp.user.di.component.DaggerGithubUserListComponent;
@@ -44,7 +44,7 @@ public class GithubUserListActivity extends BaseActivity<GithubUserListPresenter
     public void initComponent() {
         DaggerGithubUserListComponent
                 .builder()
-                .appComponent(((BaseApplication)this.getApplicationContext()).getAppComponent())
+                .appComponent(((ZooApplication)this.getApplicationContext()).getAppComponent())
                 .githubUserListModule(new GithubUserListModule(this))
                 .build()
                 .inject(this);
