@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
-        app:title="@string/app_name"
+        app:title="@string/github_user_like"
         app:titleTextColor="@android:color/white">
 
     </android.support.v7.widget.Toolbar>
@@ -24,7 +24,7 @@
         android:layout_marginTop="30dp"
         android:textSize="24sp"
         android:textColor="@color/text_black"
-        android:text="您选择的最喜欢作者是"
+        android:text="@string/favorite_title"
         android:textStyle="bold"/>
 
     <ImageView

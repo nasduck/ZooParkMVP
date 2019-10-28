@@ -19,13 +19,13 @@
         android:id="@+id/btn_github_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Github User List"/>
+        android:text="@string/github_user_list"/>
 
     <Button
         android:id="@+id/btn_user_like"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Favorite Github User"
+        android:text="@string/github_user_like"
         android:visibility="gone"/>
 
 </LinearLayout>
