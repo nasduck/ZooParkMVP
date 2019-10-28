@@ -1,4 +1,4 @@
-package com.zoopark.lib.application;
+package com.zoopark.lib.app;
 
 import android.app.Application;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.support.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.zoopark.lib.BuildConfig;
-import com.zoopark.lib.base.IConfigModule;
 import com.zoopark.lib.inject.component.AppComponent;
 import com.zoopark.lib.inject.component.DaggerAppComponent;
 import com.zoopark.lib.inject.module.GlobalConfigModule;
@@ -18,14 +17,16 @@ public class AppDelegate implements IAppLifecycle {
     private AppComponent mAppComponent;
     private IConfigModule mConfigModule;
     private IAppLifecycle mAppLifecycle;
+    private IActivityLifecycle mActivityLifecycle;
 
     public AppDelegate(Context context) {
 
         // 通过反射, 取 Manifest 文件中配置的 ConfigModule
         this.mConfigModule = new ManifestParser(context).parse().get(0);
 
-        // 获得用户对 App 生命周期的额外配置
+        // 获得用户对生命周期的额外配置
         mAppLifecycle = mConfigModule.getAppLifecycle();
+        mActivityLifecycle = mConfigModule.getActivityLifecycle();
     }
 
     @Override
@@ -58,6 +59,9 @@ public class AppDelegate implements IAppLifecycle {
 
         mAppComponent.inject(this);
 
+        // 配置用户定义的 Activity 生命周期
+        if (mActivityLifecycle != null) mApp.registerActivityLifecycleCallbacks(mActivityLifecycle);
+
         if (mAppLifecycle != null) mAppLifecycle.onCreate(app);
     }
 
@@ -65,7 +69,15 @@ public class AppDelegate implements IAppLifecycle {
     public void onTerminate(Application app) {
         this.mApp = app;
 
+        if (mActivityLifecycle != null) app.unregisterActivityLifecycleCallbacks(mActivityLifecycle);
+
         if (mAppLifecycle != null) mAppLifecycle.onTerminate(app);
+
+        this.mApp = null;
+        this.mAppComponent = null;
+        this.mConfigModule = null;
+        this.mAppLifecycle = null;
+        this.mActivityLifecycle = null;
     }
 
     public AppComponent getAppComponent() {

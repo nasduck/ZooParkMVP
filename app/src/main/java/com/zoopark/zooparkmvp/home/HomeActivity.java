@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.zoopark.lib.base.BaseActivity;
+import com.zoopark.lib.base.impl.BaseActivity;
 import com.zoopark.zooparkmvp.R;
 
 import butterknife.BindView;

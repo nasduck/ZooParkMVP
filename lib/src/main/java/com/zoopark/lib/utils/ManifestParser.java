@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
-import com.zoopark.lib.base.IConfigModule;
+import com.zoopark.lib.app.IConfigModule;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.zoopark.lib.application;
+package com.zoopark.lib.app;
 
 import android.app.Application;
 import android.content.Context;

@@ -3,7 +3,7 @@ package com.zoopark.zooparkmvp.base;
 import android.app.Application;
 import android.content.Context;
 
-import com.zoopark.lib.application.IAppLifecycle;
+import com.zoopark.lib.app.IAppLifecycle;
 
 /**
  * 用户在 Application 生命周期中的额外配置

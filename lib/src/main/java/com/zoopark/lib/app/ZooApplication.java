@@ -1,9 +1,8 @@
-package com.zoopark.lib.application;
+package com.zoopark.lib.app;
 
 import android.app.Application;
 import android.content.Context;
 
-import com.zoopark.lib.application.AppDelegate;
 import com.zoopark.lib.inject.component.AppComponent;
 
 public class ZooApplication extends Application {

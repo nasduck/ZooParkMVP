@@ -1,6 +1,6 @@
 package com.zoopark.zooparkmvp.user.contract;
 
-import com.zoopark.lib.base.BaseActivity;
+import com.zoopark.lib.base.impl.BaseActivity;
 import com.zoopark.lib.mvp.IModel;
 import com.zoopark.lib.mvp.IView;
 import com.zoopark.zooparkmvp.user.model.entity.GithubUserBean;

@@ -2,8 +2,9 @@ package com.zoopark.zooparkmvp.base;
 
 import android.content.Context;
 
-import com.zoopark.lib.base.IConfigModule;
-import com.zoopark.lib.application.IAppLifecycle;
+import com.zoopark.lib.app.IActivityLifecycle;
+import com.zoopark.lib.app.IConfigModule;
+import com.zoopark.lib.app.IAppLifecycle;
 import com.zoopark.lib.inject.config.GlobalHttpHandler;
 import com.zoopark.lib.inject.module.GlobalConfigModule;
 
@@ -39,10 +40,18 @@ public class GlobalConfiguration implements IConfigModule {
     }
 
     /**
-     * 配置 Application 生命周期
+     * 配置 Application 的生命周期
      */
     @Override
     public IAppLifecycle getAppLifecycle() {
         return new AppLifecycle();
+    }
+
+    /**
+     * 配置全局 Activity 的生命周期
+     */
+    @Override
+    public IActivityLifecycle getActivityLifecycle() {
+        return new ActivityLifecycle();
     }
 }

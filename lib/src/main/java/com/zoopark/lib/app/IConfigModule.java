@@ -1,8 +1,9 @@
-package com.zoopark.lib.base;
+package com.zoopark.lib.app;
 
 import android.content.Context;
 
-import com.zoopark.lib.application.IAppLifecycle;
+import com.zoopark.lib.app.IActivityLifecycle;
+import com.zoopark.lib.app.IAppLifecycle;
 import com.zoopark.lib.inject.module.GlobalConfigModule;
 
 public interface IConfigModule {
@@ -16,4 +17,6 @@ public interface IConfigModule {
     void configZoo(Context context, GlobalConfigModule.Builder builder);
 
     IAppLifecycle getAppLifecycle();
+
+    IActivityLifecycle getActivityLifecycle();
 }
