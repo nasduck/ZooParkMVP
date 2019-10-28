@@ -21,4 +21,11 @@
         android:layout_height="wrap_content"
         android:text="Github User List"/>
 
+    <Button
+        android:id="@+id/btn_user_like"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Favorite Github User"
+        android:visibility="gone"/>
+
 </LinearLayout>

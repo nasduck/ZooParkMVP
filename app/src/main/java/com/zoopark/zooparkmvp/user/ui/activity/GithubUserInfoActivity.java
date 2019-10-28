@@ -5,10 +5,10 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -17,11 +17,14 @@ import com.bumptech.glide.Glide;
 import com.zoopark.lib.BaseActivity;
 import com.zoopark.lib.BaseApplication;
 import com.zoopark.zooparkmvp.R;
+import com.zoopark.zooparkmvp.base.event.AddFavoriteUserEvent;
 import com.zoopark.zooparkmvp.user.contract.GithubUserInfoContract;
 import com.zoopark.zooparkmvp.user.di.component.DaggerGithubUserInfoComponent;
 import com.zoopark.zooparkmvp.user.di.module.GithubUserInfoModule;
 import com.zoopark.zooparkmvp.user.model.entity.GithubUserBean;
 import com.zoopark.zooparkmvp.user.presenter.GithubUserInfoPresenter;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,6 +44,7 @@ public class GithubUserInfoActivity extends BaseActivity<GithubUserInfoPresenter
 
     @Autowired(name = "UserName")
     public String mUserName;
+    private String mAvatarUrl;
 
     private String mPersonalUrl;
 
@@ -81,6 +85,7 @@ public class GithubUserInfoActivity extends BaseActivity<GithubUserInfoPresenter
     public void configUI(GithubUserBean userInfo) {
         Glide.with(this).load(userInfo.getAvatarUrl()).into(mIvAvatar);
         mTvName.setText(userInfo.getLogin());
+        mAvatarUrl = userInfo.getAvatarUrl();
         mPersonalUrl = userInfo.getHtmlUrl();
     }
 
@@ -90,5 +95,11 @@ public class GithubUserInfoActivity extends BaseActivity<GithubUserInfoPresenter
         Uri uri = Uri.parse(mPersonalUrl);
         intent.setData(uri);
         startActivity(intent);
+    }
+
+    @OnClick(R.id.btn_like)
+    public void onLikeClick() {
+        Toast.makeText(this, "您已添加最喜欢的作者，请返回首页查看", Toast.LENGTH_SHORT).show();
+        EventBus.getDefault().post(new AddFavoriteUserEvent(mUserName, mAvatarUrl));
     }
 }

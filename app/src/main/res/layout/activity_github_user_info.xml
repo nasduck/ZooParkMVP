@@ -20,9 +20,9 @@
         android:id="@+id/iv_avatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_below="@id/toolbar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:layout_below="@id/toolbar"/>
+        android:layout_marginTop="60dp" />
 
     <TextView
         android:id="@+id/tv_name"
@@ -31,9 +31,9 @@
         android:layout_below="@id/iv_avatar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
+        android:textColor="@color/text_black"
         android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="@color/text_black"/>
+        android:textStyle="bold" />
 
     <FrameLayout
         android:id="@+id/layout_personal"
@@ -47,30 +47,40 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_gravity="top"
-            android:background="@color/line_gray"/>
+            android:background="@color/line_gray" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
-            android:textSize="16sp"
+            android:text="github个人主页"
             android:textColor="@color/text_black"
-            android:text="github个人主页"/>
+            android:textSize="16sp" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="16dp"
-            android:src="@drawable/ic_chevron_right_black_24dp"/>
+            android:src="@drawable/ic_chevron_right_black_24dp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_gravity="bottom"
-            android:background="@color/line_gray"/>
+            android:background="@color/line_gray" />
 
     </FrameLayout>
+
+    <Button
+        android:id="@+id/btn_like"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_button"
+        android:text="设为最喜欢作者"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>
