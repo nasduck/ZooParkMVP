@@ -2,24 +2,26 @@ package com.zoopark.zooparkmvp.base;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
 import com.zoopark.lib.application.IAppLifecycle;
 
+/**
+ * 用户在 Application 生命周期中的额外配置
+ */
 public class AppLifecycle implements IAppLifecycle {
 
     @Override
     public void attachBaseContext(Context context) {
-        Log.d("cao", "app attachBaseContext");
+        // Do anything you want
     }
 
     @Override
     public void onCreate(Application app) {
-        Log.d("cao", "app onCreate");
+        // Do anything you want
     }
 
     @Override
     public void onTerminate(Application app) {
-
+        // Do anything you want
     }
 }
