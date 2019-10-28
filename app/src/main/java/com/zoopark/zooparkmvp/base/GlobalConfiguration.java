@@ -1,13 +1,11 @@
 package com.zoopark.zooparkmvp.base;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.zoopark.lib.ConfigModule;
+import com.zoopark.lib.base.ConfigModule;
 import com.zoopark.lib.inject.config.GlobalHttpHandler;
 import com.zoopark.lib.inject.module.GlobalConfigModule;
 
-import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 

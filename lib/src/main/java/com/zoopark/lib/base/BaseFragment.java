@@ -1,4 +1,4 @@
-package com.zoopark.lib;
+package com.zoopark.lib.base;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.zoopark.lib.ok.IPresenter;
+import com.zoopark.lib.mvp.IPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 

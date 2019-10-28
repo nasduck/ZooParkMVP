@@ -1,10 +1,9 @@
 package com.zoopark.zooparkmvp.user.presenter;
 
-import android.util.Log;
 import android.widget.Toast;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.zoopark.lib.ok.BasePresenter;
+import com.zoopark.lib.mvp.impl.BasePresenter;
 import com.zoopark.zooparkmvp.user.contract.GithubUserListContract;
 import com.zoopark.zooparkmvp.user.model.entity.GithubUserBean;
 import com.zoopark.zooparkmvp.user.ui.adapter.GithubUserAdapter;
@@ -16,7 +15,6 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.rx_cache2.EvictProvider;
 import io.rx_cache2.Reply;

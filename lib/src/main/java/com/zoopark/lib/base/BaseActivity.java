@@ -1,4 +1,4 @@
-package com.zoopark.lib;
+package com.zoopark.lib.base;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.nasduck.rafikipermissions.RafikiPermissions;
-import com.zoopark.lib.ok.IPresenter;
+import com.zoopark.lib.mvp.IPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 

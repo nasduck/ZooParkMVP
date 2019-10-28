@@ -2,8 +2,6 @@ package com.zoopark.lib.inject.component;
 
 import android.app.Application;
 
-
-import com.zoopark.lib.inject.AppDelegate;
 import com.zoopark.lib.inject.module.AppModule;
 import com.zoopark.lib.inject.module.CacheModule;
 import com.zoopark.lib.inject.module.ClientModule;

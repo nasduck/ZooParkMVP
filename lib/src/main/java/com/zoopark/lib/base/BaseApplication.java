@@ -1,14 +1,16 @@
-package com.zoopark.lib;
+package com.zoopark.lib.base;
 
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.zoopark.lib.BuildConfig;
 import com.zoopark.lib.inject.component.AppComponent;
 
 import com.zoopark.lib.inject.component.DaggerAppComponent;
 import com.zoopark.lib.inject.module.GlobalConfigModule;
+import com.zoopark.lib.utils.ManifestParser;
 
 import java.util.List;
 

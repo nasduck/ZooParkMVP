@@ -1,15 +1,9 @@
-package com.zoopark.lib.inject;
+package com.zoopark.lib.base;
 
 import android.app.Application;
 import android.content.Context;
 
-import com.zoopark.lib.AppLifecycles;
-import com.zoopark.lib.ConfigModule;
-import com.zoopark.lib.ManifestParser;
 import com.zoopark.lib.inject.component.AppComponent;
-import com.zoopark.lib.inject.module.GlobalConfigModule;
-
-import java.util.List;
 
 public class AppDelegate implements AppLifecycles {
 

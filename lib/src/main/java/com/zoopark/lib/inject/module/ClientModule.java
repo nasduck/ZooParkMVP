@@ -3,7 +3,7 @@ package com.zoopark.lib.inject.module;
 import android.app.Application;
 import android.support.annotation.Nullable;
 
-import com.zoopark.lib.BaseApplication;
+import com.zoopark.lib.base.BaseApplication;
 import com.zoopark.lib.inject.config.GlobalHttpHandler;
 import com.zoopark.lib.inject.config.OkhttpConfig;
 import com.zoopark.lib.inject.config.RetrofitConfig;

@@ -1,7 +1,6 @@
-package com.zoopark.lib;
+package com.zoopark.lib.mvp.impl;
 
-import com.zoopark.lib.ok.BasePresenter;
-import com.zoopark.lib.ok.IModel;
+import com.zoopark.lib.mvp.IModel;
 import com.zoopark.lib.repository.IRepositoryManager;
 
 public class BaseModel implements IModel {
@@ -13,7 +12,7 @@ public class BaseModel implements IModel {
     }
 
     /**
-     * 在框架中 {@link BasePresenter#onDestroy()} 时会默认调用 {@link IModel#onDestroy()}
+     * 在框架中 BasePresenter.onDestroy() 时会默认调用 IModel.onDestroy()
      */
     @Override
     public void onDestroy() {
