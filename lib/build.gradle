@@ -52,6 +52,7 @@ dependencies {
     api rootProject.ext.dependencies["rxlifecycle2-android"]
     api rootProject.ext.dependencies["rxlifecycle2-components"]
     api rootProject.ext.dependencies["rxcache2"]
+    api rootProject.ext.dependencies["rxcache2.gson"]
 
     // Dagger
     api rootProject.ext.dependencies['dagger2']

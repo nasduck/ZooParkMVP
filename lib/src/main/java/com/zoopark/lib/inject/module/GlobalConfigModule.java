@@ -3,13 +3,13 @@ package com.zoopark.lib.inject.module;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.zoopark.lib.inject.iconfig.BaseUrl;
-import com.zoopark.lib.inject.iconfig.GlobalHttpHandler;
-import com.zoopark.lib.inject.iconfig.OkhttpConfiguration;
-import com.zoopark.lib.inject.iconfig.RetrofitConfiguration;
+import com.zoopark.lib.inject.config.BaseUrl;
+import com.zoopark.lib.inject.config.GlobalHttpHandler;
+import com.zoopark.lib.inject.config.OkHttpConfig;
+import com.zoopark.lib.inject.config.RetrofitConfig;
+import com.zoopark.lib.inject.config.RxCacheConfig;
 import com.zoopark.lib.utils.Preconditions;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -21,16 +21,18 @@ public class GlobalConfigModule {
 
     private HttpUrl mApiUrl;
     private BaseUrl mBaseUrl;
-    private GlobalHttpHandler mHandler;
-    private RetrofitConfiguration mRetrofitConfiguration;
-    private OkhttpConfiguration mOkhttpConfiguration;
+    private GlobalHttpHandler mHttpHandler;
+    private RetrofitConfig mRetrofitConfig;
+    private OkHttpConfig mOkHttpConfig;
+    private RxCacheConfig mRxCacheConfig;
 
     private GlobalConfigModule(Builder builder) {
         this.mApiUrl = builder.apiUrl;
         this.mBaseUrl = builder.baseUrl;
-        this.mHandler = builder.handler;
-        this.mRetrofitConfiguration = builder.retrofitConfiguration;
-        this.mOkhttpConfiguration = builder.okhttpConfiguration;
+        this.mHttpHandler = builder.httpHandler;
+        this.mRetrofitConfig = builder.retrofitConfig;
+        this.mOkHttpConfig = builder.okhttpConfig;
+        this.mRxCacheConfig = builder.rxCacheConfig;
     }
 
     public static Builder builder() {
@@ -49,34 +51,45 @@ public class GlobalConfigModule {
         return mApiUrl == null ? HttpUrl.parse("https://api.github.com/") : mApiUrl;
     }
 
+    /**
+     * 提供全局 Http 请求和响应拦截
+     */
     @Singleton
     @Provides
     @Nullable
-    GlobalHttpHandler provideGlobalHttpHandler() {
-        return mHandler;
+    GlobalHttpHandler provideGlobalHttpInterceptor() {
+        return mHttpHandler;
     }
 
     @Singleton
     @Provides
     @Nullable
-    RetrofitConfiguration provideRetrofitConfiguration() {
-        return mRetrofitConfiguration;
+    RetrofitConfig provideRetrofitConfig() {
+        return mRetrofitConfig;
     }
 
     @Singleton
     @Provides
     @Nullable
-    OkhttpConfiguration provideOkhttpConfiguration() {
-        return mOkhttpConfiguration;
+    OkHttpConfig provideOkhttpConfig() {
+        return mOkHttpConfig;
+    }
+
+    @Singleton
+    @Provides
+    @Nullable
+    RxCacheConfig provideRxCacheConfig() {
+        return mRxCacheConfig;
     }
 
     public static class Builder {
 
         private HttpUrl apiUrl;
         private BaseUrl baseUrl;
-        private GlobalHttpHandler handler;
-        private RetrofitConfiguration retrofitConfiguration;
-        private OkhttpConfiguration okhttpConfiguration;
+        private GlobalHttpHandler httpHandler;
+        private RetrofitConfig retrofitConfig;
+        private OkHttpConfig okhttpConfig;
+        private RxCacheConfig rxCacheConfig;
 
         private Builder() {}
 
@@ -98,17 +111,22 @@ public class GlobalConfigModule {
         }
 
         public Builder globalHttpHandler(GlobalHttpHandler handler) {//用来处理http响应结果
-            this.handler = handler;
+            this.httpHandler = handler;
             return this;
         }
 
-        public Builder retrofitConfiguration(RetrofitConfiguration retrofitConfiguration) {
-            this.retrofitConfiguration = retrofitConfiguration;
+        public Builder retrofitConfig(RetrofitConfig retrofitConfig) {
+            this.retrofitConfig = retrofitConfig;
             return this;
         }
 
-        public Builder okhttpConfiguration(OkhttpConfiguration okhttpConfiguration) {
-            this.okhttpConfiguration = okhttpConfiguration;
+        public Builder okhttpConfig(OkHttpConfig okhttpConfig) {
+            this.okhttpConfig = okhttpConfig;
+            return this;
+        }
+
+        public Builder cacheConfig(RxCacheConfig rxCacheConfig) {
+            this.rxCacheConfig = rxCacheConfig;
             return this;
         }
 

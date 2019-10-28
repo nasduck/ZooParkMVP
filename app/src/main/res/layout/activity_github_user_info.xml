@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:navigationIcon="@drawable/ic_arrow_back_white_24dp"
+        app:title="@string/github_user_info"
+        app:titleTextColor="@android:color/white">
+
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_avatar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/text_black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <FrameLayout
+        android:id="@+id/layout_personal"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/tv_name"
+        android:layout_marginTop="64dp"
+        android:background="@android:color/white">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="top"
+            android:background="@color/line_gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:text="@string/github_personal_page"
+            android:textColor="@color/text_black"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/ic_chevron_right_black_24dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="@color/line_gray" />
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btn_like"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_button"
+        android:text="@string/add_favorite"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

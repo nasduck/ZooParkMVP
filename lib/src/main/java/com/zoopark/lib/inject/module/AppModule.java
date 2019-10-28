@@ -1,7 +1,7 @@
 package com.zoopark.lib.inject.module;
 
 import com.zoopark.lib.repository.IRepositoryManager;
-import com.zoopark.lib.repository.RepositoryManager;
+import com.zoopark.lib.repository.impl.RepositoryManager;
 
 import dagger.Binds;
 import dagger.Module;
