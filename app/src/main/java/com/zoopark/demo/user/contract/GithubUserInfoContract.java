@@ -1,8 +1,8 @@
 package com.zoopark.demo.user.contract;
 
-import com.zoopark.lib.ok.IModel;
-import com.zoopark.lib.ok.IView;
 import com.zoopark.demo.user.model.entity.GithubUserBean;
+import com.zoopark.lib.mvp.IModel;
+import com.zoopark.lib.mvp.IView;
 
 import io.reactivex.Observable;
 import retrofit2.http.Path;

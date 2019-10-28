@@ -1,8 +1,8 @@
 package com.zoopark.demo.user.presenter;
 
-import com.zoopark.lib.ok.BasePresenter;
 import com.zoopark.demo.user.contract.GithubUserInfoContract;
 import com.zoopark.demo.user.model.entity.GithubUserBean;
+import com.zoopark.lib.mvp.impl.BasePresenter;
 
 import javax.inject.Inject;
 

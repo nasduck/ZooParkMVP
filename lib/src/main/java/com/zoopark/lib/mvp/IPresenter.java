@@ -1,4 +1,4 @@
-package com.zoopark.lib.ok;
+package com.zoopark.lib.mvp;
 
 import android.arch.lifecycle.LifecycleObserver;
 

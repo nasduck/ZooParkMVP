@@ -1,4 +1,4 @@
-package com.zoopark.lib;
+package com.zoopark.lib.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

@@ -1,9 +1,10 @@
 package com.zoopark.demo.user.contract;
 
-import com.zoopark.lib.BaseActivity;
-import com.zoopark.lib.ok.IModel;
-import com.zoopark.lib.ok.IView;
+
 import com.zoopark.demo.user.model.entity.GithubUserBean;
+import com.zoopark.lib.base.impl.BaseActivity;
+import com.zoopark.lib.mvp.IModel;
+import com.zoopark.lib.mvp.IView;
 
 import java.util.List;
 
@@ -19,9 +20,7 @@ public interface GithubUserListContract {
 
     interface Model extends IModel {
         Observable<List<GithubUserBean>> getUserInfo();
-
         Observable<Reply<List<GithubUserBean>>> getUserListCache(Observable<List<GithubUserBean>> observable, EvictProvider evictProvider);
-
     }
 
 }

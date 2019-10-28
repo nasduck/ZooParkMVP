@@ -1,8 +1,10 @@
-package com.zoopark.lib;
+package com.zoopark.lib.utils;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+
+import com.zoopark.lib.app.IConfigModule;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +18,8 @@ public final class ManifestParser {
         this.context = context;
     }
 
-    public List<ConfigModule> parse() {
-        List<ConfigModule> modules = new ArrayList<ConfigModule>();
+    public List<IConfigModule> parse() {
+        List<IConfigModule> modules = new ArrayList<IConfigModule>();
         try {
             ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(
                     context.getPackageName(), PackageManager.GET_META_DATA);
@@ -35,7 +37,7 @@ public final class ManifestParser {
         return modules;
     }
 
-    private static ConfigModule parseModule(String className) {
+    private static IConfigModule parseModule(String className) {
         Class<?> clazz;
         try {
             clazz = Class.forName(className);
@@ -52,9 +54,9 @@ public final class ManifestParser {
             throw new RuntimeException("Unable to instantiate ConfigModule implementation for " + clazz, e);
         }
 
-        if (!(module instanceof ConfigModule)) {
+        if (!(module instanceof IConfigModule)) {
             throw new RuntimeException("Expected instanceof ConfigModule, but found: " + module);
         }
-        return (ConfigModule) module;
+        return (IConfigModule) module;
     }
 }

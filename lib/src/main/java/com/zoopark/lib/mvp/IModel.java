@@ -1,4 +1,4 @@
-package com.zoopark.lib.ok;
+package com.zoopark.lib.mvp;
 
 public interface IModel {
 

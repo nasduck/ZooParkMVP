@@ -1,4 +1,4 @@
-package com.zoopark.lib.inject.iconfig;
+package com.zoopark.lib.inject.config;
 
 import android.content.Context;
 

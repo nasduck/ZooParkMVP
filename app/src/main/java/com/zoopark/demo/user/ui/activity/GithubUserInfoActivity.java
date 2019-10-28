@@ -14,8 +14,6 @@ import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
-import com.zoopark.lib.BaseActivity;
-import com.zoopark.lib.BaseApplication;
 import com.zoopark.demo.R;
 import com.zoopark.demo.base.event.AddFavoriteUserEvent;
 import com.zoopark.demo.user.contract.GithubUserInfoContract;
@@ -23,6 +21,8 @@ import com.zoopark.demo.user.di.component.DaggerGithubUserInfoComponent;
 import com.zoopark.demo.user.di.module.GithubUserInfoModule;
 import com.zoopark.demo.user.model.entity.GithubUserBean;
 import com.zoopark.demo.user.presenter.GithubUserInfoPresenter;
+import com.zoopark.lib.app.ZooApplication;
+import com.zoopark.lib.base.impl.BaseActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -52,7 +52,7 @@ public class GithubUserInfoActivity extends BaseActivity<GithubUserInfoPresenter
     public void initComponent() {
         DaggerGithubUserInfoComponent
                 .builder()
-                .appComponent(((BaseApplication)this.getApplicationContext()).getAppComponent())
+                .appComponent(((ZooApplication)this.getApplicationContext()).getAppComponent())
                 .githubUserInfoModule(new GithubUserInfoModule(this))
                 .build()
                 .inject(this);

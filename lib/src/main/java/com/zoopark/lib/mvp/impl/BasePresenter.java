@@ -1,4 +1,8 @@
-package com.zoopark.lib.ok;
+package com.zoopark.lib.mvp.impl;
+
+import com.zoopark.lib.mvp.IModel;
+import com.zoopark.lib.mvp.IPresenter;
+import com.zoopark.lib.mvp.IView;
 
 import org.greenrobot.eventbus.EventBus;
 

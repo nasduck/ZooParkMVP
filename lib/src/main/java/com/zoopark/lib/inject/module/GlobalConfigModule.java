@@ -3,11 +3,11 @@ package com.zoopark.lib.inject.module;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.zoopark.lib.inject.iconfig.BaseUrl;
-import com.zoopark.lib.inject.iconfig.GlobalHttpHandler;
-import com.zoopark.lib.inject.iconfig.OkhttpConfig;
-import com.zoopark.lib.inject.iconfig.RetrofitConfig;
-import com.zoopark.lib.inject.iconfig.RxCacheConfig;
+import com.zoopark.lib.inject.config.BaseUrl;
+import com.zoopark.lib.inject.config.GlobalHttpHandler;
+import com.zoopark.lib.inject.config.OkHttpConfig;
+import com.zoopark.lib.inject.config.RetrofitConfig;
+import com.zoopark.lib.inject.config.RxCacheConfig;
 import com.zoopark.lib.utils.Preconditions;
 
 import javax.inject.Singleton;
@@ -21,17 +21,18 @@ public class GlobalConfigModule {
 
     private HttpUrl mApiUrl;
     private BaseUrl mBaseUrl;
-    private GlobalHttpHandler mHandler;
+    private GlobalHttpHandler mHttpHandler;
     private RetrofitConfig mRetrofitConfig;
-    private OkhttpConfig mOkHttpConfig;
+    private OkHttpConfig mOkHttpConfig;
     private RxCacheConfig mRxCacheConfig;
 
     private GlobalConfigModule(Builder builder) {
         this.mApiUrl = builder.apiUrl;
         this.mBaseUrl = builder.baseUrl;
-        this.mHandler = builder.handler;
+        this.mHttpHandler = builder.httpHandler;
         this.mRetrofitConfig = builder.retrofitConfig;
         this.mOkHttpConfig = builder.okhttpConfig;
+        this.mRxCacheConfig = builder.rxCacheConfig;
     }
 
     public static Builder builder() {
@@ -50,11 +51,14 @@ public class GlobalConfigModule {
         return mApiUrl == null ? HttpUrl.parse("https://api.github.com/") : mApiUrl;
     }
 
+    /**
+     * 提供全局 Http 请求和响应拦截
+     */
     @Singleton
     @Provides
     @Nullable
-    GlobalHttpHandler provideGlobalHttpHandler() {
-        return mHandler;
+    GlobalHttpHandler provideGlobalHttpInterceptor() {
+        return mHttpHandler;
     }
 
     @Singleton
@@ -67,7 +71,7 @@ public class GlobalConfigModule {
     @Singleton
     @Provides
     @Nullable
-    OkhttpConfig provideOkhttpConfig() {
+    OkHttpConfig provideOkhttpConfig() {
         return mOkHttpConfig;
     }
 
@@ -82,9 +86,9 @@ public class GlobalConfigModule {
 
         private HttpUrl apiUrl;
         private BaseUrl baseUrl;
-        private GlobalHttpHandler handler;
+        private GlobalHttpHandler httpHandler;
         private RetrofitConfig retrofitConfig;
-        private OkhttpConfig okhttpConfig;
+        private OkHttpConfig okhttpConfig;
         private RxCacheConfig rxCacheConfig;
 
         private Builder() {}
@@ -107,7 +111,7 @@ public class GlobalConfigModule {
         }
 
         public Builder globalHttpHandler(GlobalHttpHandler handler) {//用来处理http响应结果
-            this.handler = handler;
+            this.httpHandler = handler;
             return this;
         }
 
@@ -116,7 +120,7 @@ public class GlobalConfigModule {
             return this;
         }
 
-        public Builder okhttpConfig(OkhttpConfig okhttpConfig) {
+        public Builder okhttpConfig(OkHttpConfig okhttpConfig) {
             this.okhttpConfig = okhttpConfig;
             return this;
         }

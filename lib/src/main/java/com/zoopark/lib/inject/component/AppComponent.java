@@ -2,8 +2,7 @@ package com.zoopark.lib.inject.component;
 
 import android.app.Application;
 
-
-import com.zoopark.lib.inject.AppDelegate;
+import com.zoopark.lib.app.AppDelegate;
 import com.zoopark.lib.inject.module.AppModule;
 import com.zoopark.lib.inject.module.CacheModule;
 import com.zoopark.lib.inject.module.ClientModule;
@@ -23,7 +22,7 @@ public interface AppComponent {
     Application application();
     IRepositoryManager repositoryManager();
 
-    void inject(Application application);
+    void inject(AppDelegate appDelegate);
 
     @Component.Builder
     interface Builder {

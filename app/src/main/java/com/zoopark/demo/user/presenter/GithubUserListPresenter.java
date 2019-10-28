@@ -3,10 +3,10 @@ package com.zoopark.demo.user.presenter;
 import android.widget.Toast;
 
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.zoopark.lib.ok.BasePresenter;
 import com.zoopark.demo.user.contract.GithubUserListContract;
 import com.zoopark.demo.user.model.entity.GithubUserBean;
 import com.zoopark.demo.user.ui.adapter.GithubUserAdapter;
+import com.zoopark.lib.mvp.impl.BasePresenter;
 
 import java.util.List;
 

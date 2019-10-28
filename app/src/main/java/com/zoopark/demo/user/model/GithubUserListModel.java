@@ -1,6 +1,6 @@
 package com.zoopark.demo.user.model;
 
-import com.zoopark.lib.BaseModel;
+import com.zoopark.lib.mvp.impl.BaseModel;
 import com.zoopark.lib.inject.scope.ActivityScope;
 import com.zoopark.lib.repository.IRepositoryManager;
 import com.zoopark.demo.service.GithubUserCacheService;
