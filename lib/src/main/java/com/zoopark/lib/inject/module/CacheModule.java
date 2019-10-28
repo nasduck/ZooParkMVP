@@ -3,7 +3,6 @@ package com.zoopark.lib.inject.module;
 import android.app.Application;
 import android.support.annotation.Nullable;
 
-import com.google.gson.Gson;
 import com.zoopark.lib.inject.iconfig.RxCacheConfig;
 import com.zoopark.lib.utils.FileUtil;
 
@@ -62,7 +61,7 @@ public abstract class CacheModule {
      */
     @Singleton
     @Provides
-    File provideCacheFile(Application app) {
+    static File provideCacheFile(Application app) {
         return FileUtil.getCacheFile(app);
     }
 

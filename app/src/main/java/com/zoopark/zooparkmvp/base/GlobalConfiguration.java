@@ -1,4 +1,4 @@
-package com.zoopark.zooparkmvp;
+package com.zoopark.zooparkmvp.base;
 
 import android.content.Context;
 
@@ -8,6 +8,6 @@ import com.zoopark.lib.inject.module.GlobalConfigModule;
 public class GlobalConfiguration implements ConfigModule {
     @Override
     public void applyOptions(Context context, GlobalConfigModule.Builder builder) {
-        builder.baseurl("http://www.baidu.com");
+        builder.baseurl("https://api.github.com");
     }
 }
