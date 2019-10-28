@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ZooParkMVP</string>
+
+    <string name="github_user_list">Github作者列表</string>
+    <string name="github_user_info">Github作者信息</string>
+    <string name="github_user_like">最喜欢的Github作者</string>
+    <string name="github_personal_page">Github个人主页</string>
+    <string name="add_favorite">设为最喜欢的作者</string>
+    <string name="add_favorite_tip">您已添加最喜欢的作者，请返回首页查看</string>
+    <string name="favorite_title">你选择最喜欢的作者是</string>
+</resources>

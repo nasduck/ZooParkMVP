@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zoopark.zooparkmvp">
+    package="com.zoopark.demo">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".home.HomeActivity">
+        <activity android:name="com.zoopark.demo.user.ui.activity.GithubUserLikeActivity"></activity>
+        <activity android:name="com.zoopark.demo.user.ui.activity.GithubUserInfoActivity" />
+        <activity android:name="com.zoopark.demo.home.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -20,10 +22,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".user.ui.activity.GithubUserListActivity"></activity>
-        <!-- mvp 配置 -->
+        <activity android:name="com.zoopark.demo.user.ui.activity.GithubUserListActivity" /> <!-- mvp 配置 -->
         <meta-data
-            android:name="com.zoopark.zooparkmvp.base.GlobalConfiguration"
+            android:name="com.zoopark.demo.base.GlobalConfiguration"
             android:value="ConfigModule" />
     </application>
 
