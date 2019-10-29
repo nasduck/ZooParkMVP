@@ -1,3 +1,5 @@
+![banner](https://github.com/nasduck/ZooParkMVP/blob/develop/art/zoopark%20banner.png?raw=true)
+
 [![API](https://img.shields.io/badge/ZooParkMVP-v1.0.5-brightgreen.svg?style=flat)](https://github.com/nasduck/ZooParkMVP/releases)&ensp;
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)&ensp;
 [![API](https://img.shields.io/badge/License-Apche2.0-brightgreen.svg?style=flat)](https://github.com/nasduck/ZooParkMVP/blob/master/LICENSE)
@@ -239,6 +241,14 @@ public class GithubUserListModule {
 }
 ```
 
+```java
+@ActivityScope
+@Component(modules = GithubUserListModule.class, dependencies = AppComponent.class)
+public interface GithubUserListComponent {
+    void inject(GithubUserListActivity activity);
+}
+```
+
 ### Model 数据层
 
 数据层继承 `BaseModel` 类并实现合约接口.
@@ -345,10 +355,11 @@ public class GithubUserInfoActivity extends BaseActivity<GithubUserInfoPresenter
 
 Welcome to send emails to dongchuanyz@163.com
 
-## Contributer
+## Contributors
 
 * [Chuan DONG](https://github.com/DONGChuan)
 * [Lihao Zhou](https://github.com/redrain39)
+* [Xiaoliang Yang](https://github.com/sohnyi)
 
 ## LICENSE
 ```
