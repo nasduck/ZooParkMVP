@@ -239,6 +239,14 @@ public class GithubUserListModule {
 }
 ```
 
+```java
+@ActivityScope
+@Component(modules = GithubUserListModule.class, dependencies = AppComponent.class)
+public interface GithubUserListComponent {
+    void inject(GithubUserListActivity activity);
+}
+```
+
 ### Model 数据层
 
 数据层继承 `BaseModel` 类并实现合约接口.
