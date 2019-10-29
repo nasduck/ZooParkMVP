@@ -1,4 +1,4 @@
-[![API](https://img.shields.io/badge/ZooParkMVP-v1.0.1-brightgreen.svg?style=flat)](https://github.com/nasduck/ZooParkMVP/releases)&ensp;
+[![API](https://img.shields.io/badge/ZooParkMVP-v1.0.5-brightgreen.svg?style=flat)](https://github.com/nasduck/ZooParkMVP/releases)&ensp;
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)&ensp;
 [![API](https://img.shields.io/badge/License-Apche2.0-brightgreen.svg?style=flat)](https://github.com/nasduck/ZooParkMVP/blob/master/LICENSE)
 
@@ -77,7 +77,7 @@ public class GlobalConfiguration implements IConfigModule {
      */
     @Override
     public IAppLifecycle getAppLifecycle() {
-        return new AppLifecycle(); // 用户自定义, 教程稍后讲解
+        return new AppLifecycle(); // 用户自定义, 教程稍后讲解. 不使用则返回 NULL.
     }
 
     /**
@@ -85,10 +85,82 @@ public class GlobalConfiguration implements IConfigModule {
      */
     @Override
     public IActivityLifecycle getActivityLifecycle() {
-        return new ActivityLifecycle(); // 用户自定义, 教程稍后讲解
+        return new ActivityLifecycle(); // 用户自定义, 教程稍后讲解. 不使用则返回 NULL.
     }
 }
 
 ```
 
+# 配置 Application 的生命周期
 
+无需添加额外的 `Application` 来继承框架的 `ZooApplication`. 只需实现 `IAppLifecycle` 接口并加入到 `GlobalConfiguration` 中即可.
+
+```java
+/**
+ * 用户在 Application 生命周期中的额外配置
+ */
+public class AppLifecycle implements IAppLifecycle {
+
+    @Override
+    public void attachBaseContext(Context context) {
+        // Do anything you want
+    }
+
+    @Override
+    public void onCreate(Application app) {
+        // Do anything you want
+    }
+
+    @Override
+    public void onTerminate(Application app) {
+        // Do anything you want
+    }
+}
+```
+
+# 配置全局 Activity 的生命周期
+
+同理, 无需添加额外的基类 `Activity` 来继承框架的 `BaseActivity`. 只需实现 `IActivityLifecycle` 接口并加入到 `GlobalConfiguration` 中即可.
+
+```java
+/**
+ * 用户在全局 Activity 生命周期中的额外配置
+ */
+public class ActivityLifecycle implements IActivityLifecycle {
+
+    @Override
+    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        // Do anything you want
+    }
+
+    @Override
+    public void onActivityStarted(Activity activity) {
+        // Do anything you want
+    }
+
+    @Override
+    public void onActivityResumed(Activity activity) {
+        // Do anything you want
+    }
+
+    @Override
+    public void onActivityPaused(Activity activity) {
+        // Do anything you want
+    }
+
+    @Override
+    public void onActivityStopped(Activity activity) {
+        // Do anything you want
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+        // Do anything you want
+    }
+
+    @Override
+    public void onActivityDestroyed(Activity activity) {
+        // Do anything you want
+    }
+}
+```
