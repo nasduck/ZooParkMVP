@@ -345,10 +345,11 @@ public class GithubUserInfoActivity extends BaseActivity<GithubUserInfoPresenter
 
 Welcome to send emails to dongchuanyz@163.com
 
-## Contributer
+## Contributors
 
 * [Chuan DONG](https://github.com/DONGChuan)
 * [Lihao Zhou](https://github.com/redrain39)
+* [Xiaoliang Yang](https://github.com/sohnyi)
 
 ## LICENSE
 ```
