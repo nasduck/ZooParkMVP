@@ -172,12 +172,12 @@ public class ActivityLifecycle implements IActivityLifecycle {
 * `Contract` - 视图层 `IView` 与数据层 `IModel` 的沟通合约. **约定**视图层显示UI的方法以及数据层获得数据的方法.
 * `DependencyInject` - 依赖注入层. 提供视图层/数据层. 以及其它依赖, 比如 `RecycleView Adapter`.
 * `Model` - 数据层. 实现`Contract`中约定的数据层合约. 注入 `IRepositoryManager` 提供 API 调用以及缓存层实现 `RxCache`.
-* `Presenter` - 逻辑实现. 具体的页面逻辑. 注入数据层与视图层. 负责从数据层获取逻辑并更新视图层
+* `Presenter` - 业务层逻辑实现. 具体的页面逻辑. 注入数据层与视图层. 负责从数据层获取逻辑并更新视图层
 * `View` - 视图层. `Activity`/`Fragment` 等. 实现`Contract`中约定的视图层合约. 注入 `Presenter`.
 
 以 Demo 中的代码为例, 从 Github Api 获取数据并以列表展示:
 
-#### Contract 合约
+### Contract 合约
 
 ```java
 public interface GithubUserListContract {
@@ -198,7 +198,7 @@ public interface GithubUserListContract {
 }
 ```
 
-#### DependencyInject 依赖注入层
+### DependencyInject 依赖注入层
 
 ```java
 @Module
@@ -210,26 +210,162 @@ public class GithubUserListModule {
         this.view = view;
     }
     
+    /**
+     * 提供视图层
+     */
     @ActivityScope
     @Provides
     GithubUserListContract.View provideGithubUserListView() {
         return this.view;
     }
 
+    /**
+     * 提供数据层
+     */
     @ActivityScope
     @Provides
     GithubUserListContract.Model provideGithubUserListModel(GithubUserListModel model) {
         return model;
     }
 
+    /**
+     * 提供列表需要的 Adapter
+     */
     @ActivityScope
     @Provides
     GithubUserAdapter providerGithubUserListAdapter() {
-        return new GithubUserAdapter(view.getSelf());
+        return new GithubUserAdapter(view.getSelf()); // 调用了约定的视图层的 getSelf 方法
     }
 }
 ```
 
+### Model 数据层
+
+数据层继承 `BaseModel` 类并实现合约接口.
+
+```java
+@ActivityScope
+public class GithubUserListModel extends BaseModel implements GithubUserListContract.Model {
+
+    @Inject
+    public GithubUserListModel(IRepositoryManager repositoryManager) {
+        super(repositoryManager);
+    }
+
+    /**
+     * 调用 API 获得数据
+     */
+    @Override
+    public Observable<List<GithubUserBean>> getUserInfo() {
+        return mRepositoryManager.obtainRetrofitService(GithubUserService.class)
+                .getUserList();
+    }
+
+    /**
+     * 从缓存层获得数据
+     */
+    @Override
+    public Observable<Reply<List<GithubUserBean>>> getUserListCache(Observable<List<GithubUserBean>> observable, EvictProvider evictProvider) {
+        return mRepositoryManager.obtainCacheService(GithubUserCacheService.class)
+                .getUserListCache(observable, evictProvider);
+    }
+
+
+}
+
+```
+
+### Presenter 业务层
+
+继承 `BasePresenter` 并指定数据层和视图层的合约. 注入数据层与视图层:
+
+```java
+public class GithubUserInfoPresenter extends BasePresenter<GithubUserInfoContract.Model, GithubUserInfoContract.View> {
+
+    @Inject
+    public GithubUserInfoPresenter(GithubUserInfoContract.Model model, GithubUserInfoContract.View rootView) {
+        super(model, rootView);
+    }
+
+    /**
+     * 实际的 API 调用逻辑
+     */
+    public void callGetGithubUserInfo(String userName) {
+        DisposableObserver<GithubUserBean> observer = mModel.getUserInfo(userName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<GithubUserBean>() {
+                    @Override
+                    public void onNext(GithubUserBean githubUserBean) {
+                        mRootView.configUI(githubUserBean); // 更新视图
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+        addDispose(observer);
+    }
+}
+```
+
+### 视图层
+
+继承 `BaseActivity`. 并指定业务 `Presenter`:
+
+```java
+public class GithubUserInfoActivity extends BaseActivity<GithubUserInfoPresenter>
+        implements GithubUserInfoContract.View {
+        
+    @Override
+    public void initComponent() {
+        DaggerGithubUserInfoComponent
+                .builder()
+                .appComponent(((ZooApplication)this.getApplicationContext()).getAppComponent())
+                .githubUserInfoModule(new GithubUserInfoModule(this))
+                .build()
+                .inject(this);
+    }
+    
+    ...其它代码
+    
+    // 调用业务层逻辑
+    // mPresenter.callGetGithubUserInfo(mUserName);
+
+}
+```
+
+## Suggestion&Question
+
+Welcome to send emails to dongchuanyz@163.com
+
+## Contributer
+
+* [Chuan DONG](https://github.com/DONGChuan)
+* [Lihao Zhou](https://github.com/redrain39)
+
+## LICENSE
+```
+   Copyright (2019) Chuan Dong, Lihao Zhou, Si Cheng
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+```
 
 
 
