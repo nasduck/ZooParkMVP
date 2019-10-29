@@ -17,6 +17,19 @@
 * 通过代理模式设置 Application/Activity 额外的生命周期配置. 无需额外创建 Application 与 BaseActivity.
 
 # 添加依赖
+步骤一：在项目的build.gradle中添加jitpack
+```
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
+步骤二：添加依赖项
+```
+  implementation 'com.github.nasduck:ZooParkMVP:1.0.5'
+```
 
 # 配置框架
 
