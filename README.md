@@ -164,3 +164,73 @@ public class ActivityLifecycle implements IActivityLifecycle {
     }
 }
 ```
+
+# 实现 MVP
+
+由几部分构成:
+
+* `Contract` - 视图层 `IView` 与数据层 `IModel` 的沟通合约. **约定**视图层显示UI的方法以及数据层获得数据的方法.
+* `DependencyInject` - 依赖注入层. 提供视图层/数据层. 以及其它依赖, 比如 `RecycleView Adapter`.
+* `Model` - 数据层. 实现`Contract`中约定的数据层合约. 注入 `IRepositoryManager` 提供 API 调用以及缓存层实现 `RxCache`.
+* `Presenter` - 逻辑实现. 具体的页面逻辑. 注入数据层与视图层. 负责从数据层获取逻辑并更新视图层
+* `View` - 视图层. `Activity`/`Fragment` 等. 实现`Contract`中约定的视图层合约. 注入 `Presenter`.
+
+以 Demo 中的代码为例, 从 Github Api 获取数据并以列表展示:
+
+#### Contract 合约
+
+```java
+public interface GithubUserListContract {
+
+    interface View extends IView {
+        // 视图层提供了一个获取自身的方法
+        BaseActivity getSelf();
+    }
+
+    interface Model extends IModel {
+        // 调用 API 获取用户信息
+        Observable<List<GithubUserBean>> getUserInfo();
+        
+        // 从缓存获取用户信息
+        Observable<Reply<List<GithubUserBean>>> getUserListCache(Observable<List<GithubUserBean>> observable, EvictProvider evictProvider);
+    }
+
+}
+```
+
+#### DependencyInject 依赖注入层
+
+```java
+@Module
+public class GithubUserListModule {
+
+    private GithubUserListContract.View view;
+
+    public GithubUserListModule(GithubUserListContract.View view) {
+        this.view = view;
+    }
+    
+    @ActivityScope
+    @Provides
+    GithubUserListContract.View provideGithubUserListView() {
+        return this.view;
+    }
+
+    @ActivityScope
+    @Provides
+    GithubUserListContract.Model provideGithubUserListModel(GithubUserListModel model) {
+        return model;
+    }
+
+    @ActivityScope
+    @Provides
+    GithubUserAdapter providerGithubUserListAdapter() {
+        return new GithubUserAdapter(view.getSelf());
+    }
+}
+```
+
+
+
+
+
