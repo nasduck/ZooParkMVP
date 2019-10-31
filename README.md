@@ -14,6 +14,7 @@
 * 支持 [RxCache](https://github.com/VictorAlbertos/RxCache) 缓存层
 * 支持 [EventBus](https://github.com/greenrobot/EventBus) 事件通信
 * 支持全局捕获 Http 请求和返回
+* 可使用 PM 层的方式来实现 Model 的复用
 * 通过代理模式设置 Application/Activity 额外的生命周期配置. 无需额外创建 Application 与 BaseActivity.
 
 # 添加依赖
@@ -297,6 +298,7 @@ public class GithubUserListModel extends BaseModel implements GithubUserListCont
 }
 
 ```
+当出现多个 Model 需要被 P层 复用时，可以创建一个 PM类 与相应的 P层 进行合约接口绑定，所需要的 Model 按需添加到 PM类 中，来实现 Model 的复用。
 
 ### Presenter 业务层
 
