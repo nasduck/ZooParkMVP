@@ -298,7 +298,14 @@ public class GithubUserListModel extends BaseModel implements GithubUserListCont
 }
 
 ```
-当出现多个 Model 需要被 P层 复用时，可以创建一个 PM类 与相应的 P层 进行合约接口绑定，所需要的 Model 按需添加到 PM类 中，来实现 Model 的复用。
+通过上述这种方式实现的Model是和P层业务相关的，一个Model对应一个P层，但是项目中会出现Model需要被复用的情况，那么本框架可以通过将原有的Model层拆分成依赖于P层的PM层和根据业务分类的Model层两部分。    
+
+- PM层实现合约接口中的方法
+- 拆分后的Model层只负责根据不同业务来提供相应的方法
+
+PM层实现合约接口为P层提供所需要的方法，在PM层中，可以根据所要实现内容来引用所需要的Model。
+
+如果你的项目中不需要对Model进行复用，那么就不需要进行拆分。
 
 ### Presenter 业务层
 
