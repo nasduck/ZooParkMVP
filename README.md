@@ -14,6 +14,7 @@
 * 支持 [RxCache](https://github.com/VictorAlbertos/RxCache) 缓存层
 * 支持 [EventBus](https://github.com/greenrobot/EventBus) 事件通信
 * 支持全局捕获 Http 请求和返回
+* 可使用 PM 层的方式来实现 Model 的复用
 * 通过代理模式设置 Application/Activity 额外的生命周期配置. 无需额外创建 Application 与 BaseActivity.
 
 # 添加依赖
@@ -297,6 +298,80 @@ public class GithubUserListModel extends BaseModel implements GithubUserListCont
 }
 
 ```
+通过上述这种方式实现的Model是和P层业务相关的，一个Model对应一个P层，但是项目中会出现Model需要被复用的情况，那么本框架可以通过将原有的Model层拆分成依赖于P层的PM层和根据业务分类的Model层两部分。    
+
+- PM层实现合约接口中的方法
+- 拆分后的Model层只负责根据不同功能模块来提供相应的方法
+
+PM层实现合约接口为P层提供所需要的方法，在PM层中，可以根据所要实现内容来引用所需要的Model。
+
+和 GithubUserService 相关的 Model：
+```java
+@ActivityScope
+public class GithubUserModel extends BaseModel {
+
+    @Inject
+    public GithubUserModel(IRepositoryManager repositoryManager) {
+        super(repositoryManager);
+    }
+
+    public Observable<GithubUserBean> getUserInfo(String username) {
+        return mRepositoryManager.obtainRetrofitService(GithubUserService.class)
+                .getUserInfo(username);
+    }
+}
+```
+和 GithubLoginService 相关的 Model：
+```java
+@ActivityScope
+public class GithubLoginModel extends BaseModel {
+
+    @Inject
+    public GithubLoginModel(IRepositoryManager repositoryManager) {
+        super(repositoryManager);
+    }
+
+    public Observable<GithubLoginBean> getLogin(String phone) {
+        return mRepositoryManager.obtainRetrofitService(GithubLoginService.class)
+                .getLogin(phone);
+    }
+}
+```
+
+与P层逻辑相关的PM层：
+```java
+@ActivityScope
+public class GithubUserInfoModel implements GithubUserInfoContract.Model {
+
+    // 引用与业务相关的model
+    private GithubUserModel mUserModel;
+    private GithubLoginModel mLoginModel;
+
+    @Inject
+    public GithubUserInfoModel(GithubUserModel userModel, GithubLoginModel loginModel) {
+        this.mUserModel = userModel;
+	this.mLoginModel = loginModel;
+    }
+
+    @Override
+    public Observable<GithubUserBean> getUserInfo(String username) {
+        return mUserModel.getUserInfo(username);
+    }
+    
+    @Override
+    public Observable<GithubLoginBean> getLogin(String phone) {
+        return mLoginModel.getLogin(phone);
+    }
+
+    @Override
+    public void onDestroy() {
+        mUserModel = null;
+	mLoginModel = null;
+    }
+}
+```
+
+如果你的项目中不需要对Model进行复用，那么就不需要进行拆分。
 
 ### Presenter 业务层
 
