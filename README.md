@@ -310,6 +310,8 @@ public class GithubUserListModel extends BaseModel implements GithubUserListCont
 * 核心即再加一层数据层, 因为和业务关联, 我们简称 PM 层.
 * 在 PM 层中通过 Dagger 将需要复用的 Model 注入进来.
 
+下面的例子为复用 GithubUserModel 与 GithubLoginModel:
+
 GithubUserService 相关的 Model:
 
 ```java
@@ -378,7 +380,7 @@ public class GithubUserInfoModel implements GithubUserInfoContract.Model {
 	mLoginModel = null;
     }
 }
-``
+```
 
 ### Presenter 业务层
 
