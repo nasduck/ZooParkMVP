@@ -296,16 +296,19 @@ public class GithubUserListModel extends BaseModel implements GithubUserListCont
 
 
 }
-
 ```
-通过上述这种方式实现的Model是和P层业务相关的，一个Model对应一个P层，但是项目中会出现Model需要被复用的情况，那么本框架可以通过将原有的Model层拆分成依赖于P层的PM层和根据业务分类的Model层两部分。    
 
-- PM层实现合约接口中的方法
-- 拆分后的Model层只负责根据不同功能模块来提供相应的方法
+通过上述这种方式实现的 Model 是和 P 层其实是业务相关的. (如果你的项目中不需要对 Model 进行复用，那么就不需要进行下面的拆分)
 
-PM层实现合约接口为P层提供所需要的方法，在PM层中，可以根据所要实现内容来引用所需要的Model。
+比如这个页面需要调用用户信息和登录的 API, 那这个 Model 层就必须混合这两种不同的 API. 如果我们希望达到复用的目的, 即根据 Retrofit 的特点, 有一个专门管理用户登录注册的 LoginService, 一个专门管理用户信息的 UserService, 它们分别对应 LoginModel 和 UserModel, 和业务接耦, 这样就可以在不同的地方复用它们.
 
-和 GithubUserService 相关的 Model：
+具体实现:
+
+* 核心即再加一层数据层, 因为和业务关联, 我们简称 PM 层.
+* 在 PM 层中通过 Dagger 将需要复用的 Model 注入进来.
+
+GithubUserService 相关的 Model:
+
 ```java
 @ActivityScope
 public class GithubUserModel extends BaseModel {
@@ -321,7 +324,9 @@ public class GithubUserModel extends BaseModel {
     }
 }
 ```
-和 GithubLoginService 相关的 Model：
+
+GithubLoginService 相关的 Model:
+
 ```java
 @ActivityScope
 public class GithubLoginModel extends BaseModel {
@@ -338,12 +343,13 @@ public class GithubLoginModel extends BaseModel {
 }
 ```
 
-与P层逻辑相关的PM层：
+与 P 层逻辑相关的 PM 层：
+
 ```java
 @ActivityScope
 public class GithubUserInfoModel implements GithubUserInfoContract.Model {
 
-    // 引用与业务相关的model
+    // 引用与业务相关的 model
     private GithubUserModel mUserModel;
     private GithubLoginModel mLoginModel;
 
@@ -369,9 +375,7 @@ public class GithubUserInfoModel implements GithubUserInfoContract.Model {
 	mLoginModel = null;
     }
 }
-```
-
-如果你的项目中不需要对Model进行复用，那么就不需要进行拆分。
+``
 
 ### Presenter 业务层
 
@@ -439,6 +443,17 @@ public class GithubUserInfoActivity extends BaseActivity<GithubUserInfoPresenter
 }
 ```
 
+# 使用 EventBus
+
+如果要使用 EventBus, 需要在 Activity/Fragment 中覆写 `useEventBus`, 返回 `true` (默认 `false`): 
+
+```
+@Override
+public boolean useEventBus() {
+    return false;
+}
+```    
+
 ## Suggestion&Question
 
 Welcome to send emails to dongchuanyz@163.com
@@ -465,7 +480,3 @@ Welcome to send emails to dongchuanyz@163.com
    See the License for the specific language governing permissions and
    limitations under the License.
 ```
-
-
-
-
